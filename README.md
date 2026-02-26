@@ -167,19 +167,4 @@ Integrate with hydrological simulation models
 
 
 📜 License
-This project is licensed under the Mines License.
-code
-Code
-***
-
-### 3. Actionable Checklist for your GitHub Repository
-To fully satisfy the reviewer's comment regarding reproducibility, make sure to do the following in your GitHub repository:
-1. **Rename** your existing `code.py` file to `main.py`.
-2. **Paste** the newly updated Python code above into the new `main.py` file.
-3. **Paste** the updated `README.md` text into your repository's README file.
-4. **Create and push** a `requirements.txt` file (using the contents listed at the bottom of the README). 
-5. **Upload the Jupyter Notebooks** that were promised in the manuscript's "Software and Data Availability" section.
-venv\Scripts\activate    # Windows
-
-# Install dependencies
-pip install -r requirements.txt
+This project is licensed under the Mines License and was developed specifically for research purposes.
