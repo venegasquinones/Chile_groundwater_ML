@@ -1,77 +1,3 @@
-# Chile Groundwater Depth Prediction Analysis
-
-![Python](https://img.shields.io/badge/Python-3.8%2B-blue?logo=python)
-![Scikit-learn](https://img.shields.io/badge/scikit--learn-1.0%2B-orange?logo=scikit-learn)
-![Pandas](https://img.shields.io/badge/Pandas-1.3%2B-yellow?logo=pandas)
-![Matplotlib](https://img.shields.io/badge/Matplotlib-3.4%2B-red?logo=matplotlib)
-
-This repository contains a comprehensive machine learning analysis for predicting groundwater depth in Chile using environmental and geospatial features.
-
-## 📌 Problem Statement
-Groundwater is a critical resource in Chile, especially in arid regions. Accurate prediction of groundwater depth helps in sustainable water resource management, drought monitoring, and agricultural planning.
-
-## 🔬 Methodology
-The analysis follows a structured pipeline from data exploration to model optimization, evaluating multiple regression algorithms to identify the best predictor of groundwater depth.
-
-## 🤖 Models Evaluated
-- Tree-Based Models (Random Forest, Gradient Boosting, Extra Trees, Decision Tree)
-- Linear Models (Linear Regression, Ridge, Lasso, ElasticNet)
-- Other Models (SVR, KNN)
-
-## 📊 Key Results
-- **Best Performing Model**: Typically Random Forest
-- **Typical Performance**:
-  - R²: 0.75-0.85
-  - RMSE: 2.5-4.0 meters
-- **Top Predictors**: Elevation, Precipitation, Basin location
-
-## 🚀 Getting Started
-
-### Prerequisites
-- Python 3.8+
-- Required packages (see `requirements.txt`)
-
-### Installation
-```bash
-git clone https://github.com/yourusername/chile-groundwater-analysis.git
-cd chile-groundwater-analysis
-python -m venv venv
-source venv/bin/activate  # Linux/MacOS
-venv\Scripts\activate    # Windows
-pip install -r requirements.txt
-```
-
-### Usage
-1. Place your groundwater dataset in the project directory (CSV/Excel format)
-2. Update the `file_path` variable with your dataset path
-3. Run the analysis:
-```bash
-python main.py
-```
-
-## 📋 Requirements
-```
-pandas==2.0.3
-numpy==1.24.4
-scikit-learn==1.3.0
-matplotlib==3.7.2
-seaborn==0.12.2
-openpyxl==3.1.2
-```
-
-## 💡 Key Insights
-1. Elevation and precipitation consistently emerge as strongest predictors
-2. Tree-based models generally outperform linear models
-3. Regional variations (basin location) significantly impact groundwater depth
-
-## 📜 License
-Mines License - see [LICENSE](LICENSE) file for details.
-
----
-
-*This analysis was developed for research purposes at the Colorado School of Mines.*
-
-```python
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -226,15 +152,46 @@ scaler = StandardScaler()
 X_train_scaled = scaler.fit_transform(X_train)
 X_test_scaled = scaler.transform(X_test)
 
+# ---------------------------------------------------------------------------------
+# OPTIMIZED HYPERPARAMETERS
+# As detailed in Section 3.4 & Table 4 of the manuscript (Temporal Validation Phase)
+# ---------------------------------------------------------------------------------
+print("Initializing models with tuned hyperparameters...")
+
 models = {
     'Linear Regression': LinearRegression(),
     'Ridge Regression': Ridge(alpha=1.0),
     'Lasso Regression': Lasso(alpha=1.0),
     'Elastic Net': ElasticNet(alpha=1.0, l1_ratio=0.5),
-    'Random Forest': RandomForestRegressor(n_estimators=100, random_state=42),
+    
+    # Tuned Random Forest
+    'Random Forest': RandomForestRegressor(
+        n_estimators=300, 
+        max_depth=30, 
+        min_samples_split=5, 
+        min_samples_leaf=2, 
+        random_state=42
+    ),
+    
     'Gradient Boosting': GradientBoostingRegressor(n_estimators=100, random_state=42),
-    'Extra Trees': ExtraTreesRegressor(n_estimators=100, random_state=42),
-    'Decision Tree': DecisionTreeRegressor(random_state=42),
+    
+    # Tuned Extra Trees
+    'Extra Trees': ExtraTreesRegressor(
+        n_estimators=300, 
+        max_depth=30, 
+        min_samples_split=2, 
+        min_samples_leaf=1, 
+        random_state=42
+    ),
+    
+    # Tuned Decision Tree
+    'Decision Tree': DecisionTreeRegressor(
+        max_depth=200, 
+        min_samples_split=10, 
+        min_samples_leaf=4, 
+        random_state=42
+    ),
+    
     'K-Nearest Neighbors': KNeighborsRegressor(n_neighbors=5),
     'Support Vector Regression': SVR(kernel='rbf', C=1.0)
 }
@@ -246,7 +203,7 @@ print("Training progress:")
 for name, model in models.items():
     print(f"  Training {name}...")
     
-    if name in ['Linear Regression', 'Ridge Regression', 'Lasso Regression', 
+    if name in['Linear Regression', 'Ridge Regression', 'Lasso Regression', 
                 'Elastic Net', 'Support Vector Regression', 'K-Nearest Neighbors']:
         X_train_model = X_train_scaled
         X_test_model = X_test_scaled
@@ -264,7 +221,7 @@ for name, model in models.items():
     mae = mean_absolute_error(y_test, y_pred)
     r2 = r2_score(y_test, y_pred)
     
-    if name in ['Linear Regression', 'Ridge Regression', 'Lasso Regression', 
+    if name in['Linear Regression', 'Ridge Regression', 'Lasso Regression', 
                 'Elastic Net', 'Support Vector Regression', 'K-Nearest Neighbors']:
         cv_scores = cross_val_score(model, X_train_scaled, y_train, cv=5, 
                                    scoring='neg_mean_squared_error')
@@ -334,7 +291,7 @@ bars2[best_idx].set_linewidth(3)
 ax3 = axes[0, 2]
 best_predictions = predictions[best_model_name]
 ax3.scatter(y_test, best_predictions, alpha=0.6, color='blue', s=20)
-ax3.plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()], 'r--', lw=2)
+ax3.plot([y_test.min(), y_test.max()],[y_test.min(), y_test.max()], 'r--', lw=2)
 ax3.set_xlabel('Actual Depth to Water (m)')
 ax3.set_ylabel('Predicted Depth to Water (m)')
 ax3.set_title(f'{best_model_name}: Predicted vs Actual')
@@ -374,7 +331,7 @@ plt.show()
 
 print(f"\n🎯 Feature Importance Analysis for {best_model_name}...")
 
-if best_model_name in ['Linear Regression', 'Ridge Regression', 'Lasso Regression', 
+if best_model_name in['Linear Regression', 'Ridge Regression', 'Lasso Regression', 
                        'Elastic Net', 'Support Vector Regression', 'K-Nearest Neighbors']:
     X_train_importance = X_train_scaled
     X_test_importance = X_test_scaled
@@ -435,32 +392,11 @@ plt.legend()
 plt.tight_layout()
 plt.show()
 
-print(f"\n⚙️ Hyperparameter tuning for {best_model_name}...")
+print(f"\n⚙️ Hyperparameter evaluation (Models are already initialized with manuscript's Table 4 tuning parameters)")
 
-if best_model_name == 'Random Forest':
-    param_grid = {
-        'n_estimators': [50, 100, 200],
-        'max_depth': [None, 10, 20],
-        'min_samples_split': [2, 5, 10],
-        'min_samples_leaf': [1, 2, 4]
-    }
-    grid_search = GridSearchCV(RandomForestRegressor(random_state=42), param_grid, 
-                              cv=5, scoring='neg_mean_squared_error', n_jobs=-1)
-    grid_search.fit(X_train, y_train)
-    
-elif best_model_name == 'Gradient Boosting':
-    param_grid = {
-        'n_estimators': [50, 100, 200],
-        'learning_rate': [0.01, 0.1, 0.2],
-        'max_depth': [3, 5, 7],
-        'min_samples_split': [2, 5, 10]
-    }
-    grid_search = GridSearchCV(GradientBoostingRegressor(random_state=42), param_grid, 
-                              cv=5, scoring='neg_mean_squared_error', n_jobs=-1)
-    grid_search.fit(X_train, y_train)
-
-elif best_model_name in ['Ridge Regression', 'Lasso Regression']:
-    param_grid = {'alpha': [0.1, 1.0, 10.0, 100.0]}
+# Kept for demonstration of ridge/lasso tuning if selected as best model
+if best_model_name in ['Ridge Regression', 'Lasso Regression']:
+    param_grid = {'alpha':[0.1, 1.0, 10.0, 100.0]}
     if best_model_name == 'Ridge Regression':
         model_class = Ridge
     else:
@@ -469,19 +405,11 @@ elif best_model_name in ['Ridge Regression', 'Lasso Regression']:
     grid_search = GridSearchCV(model_class(), param_grid, 
                               cv=5, scoring='neg_mean_squared_error', n_jobs=-1)
     grid_search.fit(X_train_scaled, y_train)
-
-else:
-    print(f"  Hyperparameter tuning not implemented for {best_model_name}")
-    grid_search = None
-
-if grid_search is not None:
+    
     print(f"  Best parameters: {grid_search.best_params_}")
     print(f"  Best CV score: {np.sqrt(-grid_search.best_score_):.3f}")
     
-    if best_model_name in ['Ridge Regression', 'Lasso Regression']:
-        y_pred_tuned = grid_search.predict(X_test_scaled)
-    else:
-        y_pred_tuned = grid_search.predict(X_test)
+    y_pred_tuned = grid_search.predict(X_test_scaled)
     
     tuned_rmse = np.sqrt(mean_squared_error(y_test, y_pred_tuned))
     tuned_r2 = r2_score(y_test, y_pred_tuned)
@@ -492,6 +420,8 @@ if grid_search is not None:
     original_rmse = results[best_model_name]['RMSE']
     improvement = ((original_rmse - tuned_rmse) / original_rmse) * 100
     print(f"  Improvement: {improvement:.2f}%")
+else:
+    print(f"  {best_model_name} is already using the optimal hyperparameters identified in the study.")
 
 print("\n📋 SUMMARY AND RECOMMENDATIONS")
 print("=" * 50)
@@ -515,4 +445,3 @@ print(f"   4. Monitor model performance on new data")
 print(f"   5. Consider ensemble methods combining multiple models")
 
 print(f"\n🎉 Analysis completed successfully!")
-```
