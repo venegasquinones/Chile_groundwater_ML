@@ -97,7 +97,7 @@ The analysis follows a structured pipeline:
 ## 🖼️ Sample Visualizations
 The analysis generates comprehensive visual reports including:
 
-![Sample Visualizations](https://via.placeholder.com/800x400/e0e0e0/000000?text=Model+Comparison+Charts+and+Feature+Importance+Plots)
+Sample Visualizations
 
 *Example plots generated during execution:*
 - Model performance comparison (RMSE/R²)
