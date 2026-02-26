@@ -22,7 +22,7 @@ print("=" * 50)
 
 print("\n📊 Loading and exploring the dataset...")
 
-file_path = r"E:\OneDrive - Colorado School of Mines\projects_2025\chile_groundwater\results\chile_2025\groundwater_chile_and_elevation_dataset_2025_with_GEE.xlsx"
+file_path = r"...\groundwater_chile_and_elevation_dataset_2025_with_GEE.xlsx"
 
 try:
     df = pd.read_csv(file_path) if file_path.endswith('.csv') else pd.read_excel(file_path)
