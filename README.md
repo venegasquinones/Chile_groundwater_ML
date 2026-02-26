@@ -135,7 +135,6 @@ A target column named Depth to water (m)
 Geospatial features (elevation, coordinates)
 Climate variables (precipitation, temperature)
 Categorical features (basin, status)
-Note: The script includes a synthetic dataset generator for demonstration if your file isn't found.
 
 
 📋 Requirements
