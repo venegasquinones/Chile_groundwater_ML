@@ -123,7 +123,7 @@ python -m venv venv
 source venv/bin/activate  # Linux/MacOS
 
 Usage
-Place your groundwater dataset in the project directory (CSV/Excel format)
+Place your groundwater dataset in the project directory (CSV/Excel format), You can find our excel file (groundwater_chile_and_elevation_dataset_2025_with_GEE.xlsx) in the data folder.
 Update the file_path variable in main.py with your dataset path
 Run the analysis:
 
