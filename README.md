@@ -62,6 +62,9 @@ The analysis follows a structured pipeline:
    - Residual analysis and prediction diagnostics
 
 ## 🤖 Models Evaluated
+
+> **Note on Reproducibility:** The tree-based models implemented in `main.py` are explicitly pre-configured with the optimized hyperparameters identified via the forward-chaining hyperparameter search detailed in the manuscript (Table 4). 
+
 | Model | Key Characteristics |
 |-------|---------------------|
 | **Tree-Based Models** | |
@@ -122,51 +125,3 @@ venv\Scripts\activate    # Windows
 
 # Install dependencies
 pip install -r requirements.txt
-```
-
-### Usage
-1. Place your groundwater dataset in the project directory (CSV/Excel format)
-2. Update the `file_path` variable in `main.py` with your dataset path
-3. Run the analysis:
-```bash
-python main.py
-```
-
-### Dataset Requirements
-Your dataset should contain:
-- A target column named `Depth to water (m)`
-- Geospatial features (elevation, coordinates)
-- Climate variables (precipitation, temperature)
-- Categorical features (basin, status)
-
-*Note: The script includes a synthetic dataset generator for demonstration if your file isn't found.*
-
-## 📋 Requirements
-```
-pandas==2.0.3
-numpy==1.24.4
-scikit-learn==1.3.0
-matplotlib==3.7.2
-seaborn==0.12.2
-openpyxl==3.1.2  # For Excel files
-```
-
-## 💡 Key Insights & Recommendations
-1. **Elevation and precipitation** consistently emerge as the strongest predictors
-2. **Regional variations** (basin location) significantly impact groundwater depth
-3. **Tree-based models** generally outperform linear models due to complex non-linear relationships
-4. **Recommendations for practitioners**:
-   - Prioritize data collection on elevation and precipitation
-   - Implement basin-specific models for better accuracy
-   - Monitor model drift as climate conditions change
-   - Consider ensemble methods for critical applications
-
-## 🔮 Future Work
-- Incorporate temporal dynamics (time-series analysis)
-- Add satellite imagery features (NDVI, soil moisture)
-- Develop regional-specific models
-- Create deployment pipeline for real-time predictions
-- Integrate with hydrological simulation models
-
-## 📜 License
-This project is licensed under the Mines License. 
