@@ -1,0 +1,22 @@
+# Normalize line endings for text, but NEVER rewrite binary payloads.
+# The absence of these rules is what destroyed data/*.7z.001 in the previous
+# version of this repository: a 24 MB binary volume was committed as a 2-byte
+# CRLF, which made the whole multi-volume archive impossible to extract.
+* text=auto
+
+*.7z      binary
+*.7z.*    binary
+*.zip     binary
+*.gz      binary
+*.xlsx    binary
+*.xls     binary
+*.parquet binary
+*.png     binary
+*.jpg     binary
+*.jpeg    binary
+*.tif     binary
+*.tiff    binary
+*.pdf     binary
+
+# Treat notebooks as binary-ish so Git does not touch their JSON payload
+*.ipynb   -text

@@ -1,0 +1,232 @@
+  1	ID	int64
+  2	Name	object
+  3	Code	float64
+  4	Elevation	int64
+  5	Basin	object
+  6	Sub_Basin	object
+  7	Depth to water (m)	float64
+  8	Outlier	bool
+  9	Status	object
+ 10	Longitude_GCS_WGS_1984	float64
+ 11	Latitude_GCS_WGS_1984	float64
+ 12	Coordinate system	object
+ 13	EPSG	int64
+ 14	Date_String	object
+ 15	elevation_NASADEM	int64
+ 16	slope_NASADEM	float64
+ 17	aspect_NASADEM	float64
+ 18	elevation_Alos_Palsar	int64
+ 19	ID_2	int64
+ 20	original_latitude	float64
+ 21	original_longitude	float64
+ 22	original_date	int64
+ 23	processing_timestamp	object
+ 24	cop_dem_30_DEM_value	float64
+ 25	cop_dem_30_DEM_unit	object
+ 26	cop_dem_30_DEM_description	object
+ 27	cop_dem_30_rs_date	object
+ 28	cop_dem_30_asset_id	object
+ 29	cop_dem_30_pixel_size	int64
+ 30	cop_dem_30_pixel_size_unit	object
+ 31	cop_dem_30_processing_method	object
+ 32	cop_dem_30_status	object
+ 33	terraclim_pr_value	int64
+ 34	terraclim_pr_value_scale	int64
+ 35	terraclim_pr_value_normalize	int64
+ 36	terraclim_pr_unit	object
+ 37	terraclim_pr_description	object
+ 38	terraclim_tmmn_value	int64
+ 39	terraclim_tmmn_value_scale	float64
+ 40	terraclim_tmmn_value_normalize	float64
+ 41	terraclim_tmmn_unit	object
+ 42	terraclim_tmmn_description	object
+ 43	terraclim_tmmx_value	int64
+ 44	terraclim_tmmx_value_scale	float64
+ 45	terraclim_tmmx_value_normalize	float64
+ 46	terraclim_tmmx_unit	object
+ 47	terraclim_tmmx_description	object
+ 48	terraclim_aet_value	int64
+ 49	terraclim_aet_value_scale	float64
+ 50	terraclim_aet_value_normalize	float64
+ 51	terraclim_aet_unit	object
+ 52	terraclim_aet_description	object
+ 53	terraclim_pet_value	int64
+ 54	terraclim_pet_value_scale	float64
+ 55	terraclim_pet_value_normalize	float64
+ 56	terraclim_pet_unit	object
+ 57	terraclim_pet_description	object
+ 58	terraclim_def_value	int64
+ 59	terraclim_def_value_scale	float64
+ 60	terraclim_def_value_normalize	float64
+ 61	terraclim_def_unit	object
+ 62	terraclim_def_description	object
+ 63	terraclim_pdsi_value	int64
+ 64	terraclim_pdsi_value_scale	float64
+ 65	terraclim_pdsi_value_normalize	float64
+ 66	terraclim_pdsi_unit	object
+ 67	terraclim_pdsi_description	object
+ 68	terraclim_srad_value	int64
+ 69	terraclim_srad_value_scale	float64
+ 70	terraclim_srad_value_normalize	float64
+ 71	terraclim_srad_unit	object
+ 72	terraclim_srad_description	object
+ 73	terraclim_vpd_value	int64
+ 74	terraclim_vpd_value_scale	float64
+ 75	terraclim_vpd_value_normalize	float64
+ 76	terraclim_vpd_unit	object
+ 77	terraclim_vpd_description	object
+ 78	terraclim_vs_value	int64
+ 79	terraclim_vs_value_scale	float64
+ 80	terraclim_vs_value_normalize	float64
+ 81	terraclim_vs_unit	object
+ 82	terraclim_vs_description	object
+ 83	terraclim_rs_date	object
+ 84	terraclim_asset_id	object
+ 85	terraclim_pixel_size	int64
+ 86	terraclim_pixel_size_unit	object
+ 87	terraclim_processing_method	object
+ 88	terraclim_status	object
+ 89	wclim_bio_bio01_value	int64
+ 90	wclim_bio_bio01_value_scale	float64
+ 91	wclim_bio_bio01_value_normalize	float64
+ 92	wclim_bio_bio01_unit	object
+ 93	wclim_bio_bio01_description	object
+ 94	wclim_bio_bio02_value	int64
+ 95	wclim_bio_bio02_value_scale	float64
+ 96	wclim_bio_bio02_value_normalize	float64
+ 97	wclim_bio_bio02_unit	object
+ 98	wclim_bio_bio02_description	object
+ 99	wclim_bio_bio03_value	int64
+100	wclim_bio_bio03_unit	object
+101	wclim_bio_bio03_description	object
+102	wclim_bio_bio04_value	int64
+103	wclim_bio_bio04_value_scale	float64
+104	wclim_bio_bio04_value_normalize	float64
+105	wclim_bio_bio04_unit	object
+106	wclim_bio_bio04_description	object
+107	wclim_bio_bio05_value	int64
+108	wclim_bio_bio05_value_scale	float64
+109	wclim_bio_bio05_value_normalize	float64
+110	wclim_bio_bio05_unit	object
+111	wclim_bio_bio05_description	object
+112	wclim_bio_bio06_value	int64
+113	wclim_bio_bio06_value_scale	float64
+114	wclim_bio_bio06_value.1	float64
+115	wclim_bio_bio06_unit	object
+116	wclim_bio_bio06_description	object
+117	wclim_bio_bio07_value	int64
+118	wclim_bio_bio07_value_scale	float64
+119	wclim_bio_bio07_value_normalize	float64
+120	wclim_bio_bio07_unit	object
+121	wclim_bio_bio07_description	object
+122	wclim_bio_bio08_value	int64
+123	wclim_bio_bio08_value_scale	float64
+124	wclim_bio_bio08_value_normalize	float64
+125	wclim_bio_bio08_unit	object
+126	wclim_bio_bio08_description	object
+127	wclim_bio_bio09_value	int64
+128	wclim_bio_bio09_value_scale	float64
+129	wclim_bio_bio09_value_normalize	float64
+130	wclim_bio_bio09_unit	object
+131	wclim_bio_bio09_description	object
+132	wclim_bio_bio10_value	int64
+133	wclim_bio_bio10_value_scale	float64
+134	wclim_bio_bio10_value_normalize	float64
+135	wclim_bio_bio10_unit	object
+136	wclim_bio_bio10_description	object
+137	wclim_bio_bio11_value	int64
+138	wclim_bio_bio11_value_scale	float64
+139	wclim_bio_bio11_value_normalize	float64
+140	wclim_bio_bio11_unit	object
+141	wclim_bio_bio11_description	object
+142	wclim_bio_bio12_value	int64
+143	wclim_bio_bio12_value_scale	int64
+144	wclim_bio_bio12_value_normalize	int64
+145	wclim_bio_bio12_unit	object
+146	wclim_bio_bio12_description	object
+147	wclim_bio_bio13_value	int64
+148	wclim_bio_bio13_value_scale	int64
+149	wclim_bio_bio13_value_normalize	int64
+150	wclim_bio_bio13_unit	object
+151	wclim_bio_bio13_description	object
+152	wclim_bio_bio14_value	int64
+153	wclim_bio_bio14_value_scale	int64
+154	wclim_bio_bio14_value_normalize	int64
+155	wclim_bio_bio14_unit	object
+156	wclim_bio_bio14_description	object
+157	wclim_bio_bio15_value	int64
+158	wclim_bio_bio15_value_scale	int64
+159	wclim_bio_bio15_value_normalize	int64
+160	wclim_bio_bio15_unit	object
+161	wclim_bio_bio15_description	object
+162	wclim_bio_bio16_value	int64
+163	wclim_bio_bio16_value_scale	int64
+164	wclim_bio_bio16_value_normalize	int64
+165	wclim_bio_bio16_unit	object
+166	wclim_bio_bio16_description	object
+167	wclim_bio_bio17_value	int64
+168	wclim_bio_bio17_value_scale	int64
+169	wclim_bio_bio17_value_normalize	int64
+170	wclim_bio_bio17_unit	object
+171	wclim_bio_bio17_description	object
+172	wclim_bio_bio18_value	int64
+173	wclim_bio_bio18_value_scale	int64
+174	wclim_bio_bio18_value_normalize	int64
+175	wclim_bio_bio18_unit	object
+176	wclim_bio_bio18_description	object
+177	wclim_bio_bio19_value	int64
+178	wclim_bio_bio19_value_scale	int64
+179	wclim_bio_bio19_value_normalize	int64
+180	wclim_bio_bio19_unit	object
+181	wclim_bio_bio19_description	object
+182	wclim_bio_rs_date	object
+183	wclim_bio_asset_id	object
+184	wclim_bio_pixel_size	int64
+185	wclim_bio_pixel_size_unit	object
+186	wclim_bio_processing_method	object
+187	wclim_bio_status	object
+188	modis_lc_LC_Type1_value	int64
+189	modis_lc_LC_Type1_unit	object
+190	modis_lc_LC_Type1_description	object
+191	modis_lc_LC_Type2_value	int64
+192	modis_lc_LC_Type2_unit	object
+193	modis_lc_LC_Type2_description	object
+194	modis_lc_LC_Type3_value	int64
+195	modis_lc_LC_Type3_unit	object
+196	modis_lc_LC_Type3_description	object
+197	modis_lc_LC_Type4_value	int64
+198	modis_lc_LC_Type4_unit	object
+199	modis_lc_LC_Type4_description	object
+200	modis_lc_LC_Type5_value	int64
+201	modis_lc_LC_Type5_unit	object
+202	modis_lc_LC_Type5_description	object
+203	modis_lc_rs_date	object
+204	modis_lc_asset_id	object
+205	modis_lc_pixel_size	int64
+206	modis_lc_pixel_size_unit	object
+207	modis_lc_processing_method	object
+208	modis_lc_status	object
+209	mod16_et_ET_value	int64
+210	mod16_et_ET_value_scale	float64
+211	mod16_et_ET_value_normalize	float64
+212	mod16_et_ET_unit	object
+213	mod16_et_ET_description	object
+214	mod16_et_PET_value	int64
+215	mod16_et_PET_value_scale	float64
+216	mod16_et_PET_value_normalize	float64
+217	mod16_et_PET_unit	object
+218	mod16_et_PET_description	object
+219	mod16_et_ET_QC_value	int64
+220	mod16_et_ET_QC_unit	object
+221	mod16_et_ET_QC_description	object
+222	mod16_et_PLE_value	int64
+223	mod16_et_PLE_value_scale	float64
+224	mod16_et_PLE_value_normalize	float64
+225	mod16_et_PLE_unit	object
+226	mod16_et_PLE_description	object
+227	mod16_et_rs_date	object
+228	mod16_et_asset_id	object
+229	mod16_et_pixel_size	int64
+230	mod16_et_pixel_size_unit	object
+231	mod16_et_processing_method	object
+232	mod16_et_status	object

@@ -1,0 +1,37 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below, together with the dataset (https://doi.org/10.5281/zenodo.23003804)."
+title: "Chile_groundwater_ML: task-matched validation designs and baselines for groundwater-level machine learning in Chile"
+authors:
+  - family-names: "Venegas-Quiñones"
+    given-names: "Héctor Leopoldo"
+    orcid: "https://orcid.org/0000-0002-1367-179X"
+  - family-names: "Garcia-Chevesich"
+    given-names: "Pablo A."
+    orcid: "https://orcid.org/0000-0002-9668-4560"
+  - family-names: "Guillen"
+    given-names: "Madeleine"
+  - family-names: "González"
+    given-names: "Edgard"
+  - family-names: "Ticona"
+    given-names: "Javier"
+  - family-names: "Díaz"
+    given-names: "José"
+  - family-names: "Zea"
+    given-names: "Julia"
+  - family-names: "Alejo"
+    given-names: "Francisco"
+  - family-names: "McCray"
+    given-names: "John E."
+    orcid: "https://orcid.org/0000-0001-7481-9965"
+version: "v1.0.0"
+date-released: "2026-09-27"
+doi: "10.5281/zenodo.23003808"
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.23003808"
+    description: "Archived code (Zenodo)"
+  - type: doi
+    value: "10.5281/zenodo.23003804"
+    description: "Dataset: analysis table, split assignments and predictions (Zenodo)"
+repository-code: "https://github.com/venegasquinones/Chile_groundwater_ML"
+license: MIT

@@ -1,169 +1,104 @@
-# 🌊 Chile Groundwater Depth Prediction Analysis
+# Chile_groundwater_ML
 
-![Python](https://img.shields.io/badge/Python-3.8%2B-blue?logo=python)
-![Scikit-learn](https://img.shields.io/badge/scikit--learn-1.0%2B-orange?logo=scikit-learn)
-![Pandas](https://img.shields.io/badge/Pandas-1.3%2B-yellow?logo=pandas)
-![Matplotlib](https://img.shields.io/badge/Matplotlib-3.4%2B-red?logo=matplotlib)
+Code for *Matching Validation Design to the Prediction Task in Groundwater Machine
+Learning: An Open National Benchmark for Chile* (manuscript submitted to *Data*, MDPI).
 
-This repository contains a comprehensive machine learning analysis for predicting groundwater depth in Chile using environmental and geospatial features. The project implements a full data science pipeline from exploratory analysis to model optimization.
+The study builds an analysis-ready table of monthly depth-to-water (DTW) values for the
+Chilean national monitoring network, scores three tree-based learners under five
+established train/test splitting designs, and compares every learner with simple
+baselines computed on the same partitions. One script produces every number, table and
+figure in the paper.
 
-## 📌 Problem Statement
-Groundwater is a critical resource in Chile, especially in arid regions. Accurate prediction of groundwater depth helps in:
-- Sustainable water resource management
-- Drought monitoring and mitigation
-- Agricultural planning
-- Environmental conservation
+**Status:** under submission; the article DOI will be added here.
 
-This analysis aims to identify key factors influencing groundwater depth and build predictive models to support water management decisions.
+- Data (analysis table, split assignments, predictions, results): https://doi.org/10.5281/zenodo.23003804
+- Code archive (this repository, v1.0.0): https://doi.org/10.5281/zenodo.23003808
 
-## 📂 Dataset
-The dataset includes:
-- **Target Variable**: `Depth to water (m)`
-- **Geospatial Features**: 
-  - Elevation (NASADEM)
-  - Slope (NASADEM)
-  - Coordinates (Longitude/Latitude)
-- **Climate Variables** (from TerraClimate):
-  - Precipitation (`terraclim_pr_value`)
-  - Minimum/Maximum Temperature (`terraclim_tmmn_value`, `terraclim_tmmx_value`)
-- **Categorical Features**:
-  - Basin name
-  - Well status
+---
 
-*Note: The actual dataset path is configured for local use. For public use, you'll need to provide your own groundwater dataset in CSV/Excel format.*
+## What the analysis does
 
-## 🔬 Methodology
-The analysis follows a structured pipeline:
+| Design | Train–test dependence removed | Baselines reported |
+|---|---|---|
+| Random (70/30 of well-months) | none | training mean, well training mean, temporal interpolation (same well), neighbor interpolation |
+| Well-based (co-location groups held out) | within-well | training mean, neighbor interpolation |
+| Spatial block (10 x 10 grid, whole cells held out, no buffer) | within-well and short-range between-well | training mean, neighbor interpolation |
+| Chronological, per well (first 70% of each well's record trains) | later records of each well | training mean, well training mean, last observation |
+| Chronological, global origin (one calendar origin) | all information after the origin | training mean, well training mean, last observation |
 
-1. **Data Loading & Exploration**
-   - Dataset validation and basic statistics
-   - Missing value handling
-   - Target variable distribution analysis
+Learners: Decision Tree, Random Forest (100 trees), Extra Trees (100 trees), scikit-learn
+defaults otherwise; five seeds per design. Skill is reported as `1 - MSE/MSE_ref` against the
+best admissible baseline of each design.
 
-2. **Feature Engineering**
-   - Categorical encoding (Label Encoding)
-   - Numeric imputation (median for missing values)
-   - Feature scaling (StandardScaler)
+Neighbor interpolation is the inverse-distance mean of the training means of the five
+geographically nearest other wells; temporal interpolation is linear in time between the same
+well's training well-months.
 
-3. **Exploratory Data Analysis (EDA)**
-   - Target distribution visualization
-   - Correlation matrix analysis
-   - Scatter plots of top correlated features
+Additional stages: grouped permutation importance, drop-column ablations (without coordinates,
+without monthly climate, longitude only), a ten-learner screen, sensitivity to record length,
+training fraction and split position (with baselines on the same partitions), error by horizon
+and by latitude band, and hyperparameter tuning with shuffled versus forward-chaining folds.
 
-4. **Model Training & Evaluation**
-   - 10+ regression algorithms tested
-   - Comprehensive performance metrics (RMSE, MAE, R²)
-   - 5-fold cross-validation
-   - Train/test split (80/20)
+## Repository layout
 
-5. **Advanced Analysis**
-   - Feature importance using built-in and permutation methods
-   - Hyperparameter tuning for top models
-   - Residual analysis and prediction diagnostics
+```
+scripts/
+  rift_pipeline.py              the whole analysis: data preparation, splits, models, baselines, all stages
+  fetch_terraclimate_bbox.py    re-extracts TerraClimate for each record's own calendar month (public THREDDS server)
+  make_figures.py               draws Figures 2-8 and S1-S7 from scripts/outputs/
+  make_figure1.py               draws the workflow diagram (Figure 1) from the pipeline's provenance files
+  make_facts.py                 derives every number and table reported in the paper (outputs/facts.json, outputs/tables/)
+  deposit.json                  the Zenodo DOI of the data deposit, used in the paper's Data Availability Statement
+extraction/
+  01_data_integration_google_earth_engine.ipynb   how the static predictors in the source file were extracted
+legacy/                          notebooks from an earlier, superseded analysis (see legacy/README.md)
+data/
+  README.md                      where to obtain the inputs
+  sample/                        a 2,000-row sample of the source file for smoke tests
+requirements.txt
+```
 
-## 🤖 Models Evaluated
+## Reproducing the results
 
-> **Note on Reproducibility:** The tree-based models implemented in `main.py` are explicitly pre-configured with the optimized hyperparameters identified via the forward-chaining hyperparameter search detailed in the manuscript (Table 4). 
+1. Obtain the inputs (see [`data/README.md`](data/README.md)) and place them in `data/raw/`,
+   or point to them with the environment variables `RIFT_SOURCE_CSV` (source file) and
+   `RIFT_SHAC_SHP` (DGA SHAC polygons, used only as a map background).
+2. Create the environment: `pip install -r requirements.txt` (Python 3.13).
+3. Run, from `scripts/`:
 
-| Model | Key Characteristics |
-|-------|---------------------|
-| **Tree-Based Models** | |
-| Random Forest | Ensemble of decision trees, handles non-linearity |
-| Gradient Boosting | Sequential tree building, high accuracy |
-| Extra Trees | Randomized tree construction, fast training |
-| Decision Tree | Interpretable single tree model |
-| **Linear Models** | |
-| Linear Regression | Baseline model |
-| Ridge | L2 regularization |
-| Lasso | L1 regularization (feature selection) |
-| ElasticNet | Hybrid L1/L2 regularization |
-| **Other Models** | |
-| SVR | Kernel-based approach |
-| KNN | Instance-based learning |
-
-## 📊 Key Results
-- **Best Performing Model**: Random Forest (typically achieves highest R² and lowest RMSE)
-- **Typical Performance**:
-  - R²: 0.75-0.85 (varies by dataset)
-  - RMSE: 2.5-4.0 meters
-  - MAE: 1.8-3.0 meters
-- **Top Predictors** (varies by region):
-  1. Elevation
-  2. Precipitation
-  3. Basin location
-  4. Slope
-  5. Temperature variables
-
-## 🖼️ Sample Visualizations
-The analysis generates comprehensive visual reports including:
-
-Sample Visualizations
-
-*Example plots generated during execution:*
-- Model performance comparison (RMSE/R²)
-- Predicted vs Actual scatter plots
-- Residual analysis
-- Feature importance rankings
-- Correlation heatmaps
-
-## 🚀 Getting Started
-
-### Prerequisites
-- Python 3.8+
-- Required packages (see `requirements.txt`)
-
-### Installation
 ```bash
-# Clone repository
-git clone https://github.com/yourusername/chile-groundwater-analysis.git
-cd chile-groundwater-analysis
+python fetch_terraclimate_bbox.py        # about 410 small NetCDF requests; files are cached
+python rift_pipeline.py --stage all       # several hours on a laptop; stages cache their outputs
+python make_figures.py
+python make_figure1.py
+python make_facts.py
+```
 
-# Create virtual environment (recommended)
-python -m venv venv
-source venv/bin/activate  # Linux/MacOS
+Outputs are written to `scripts/outputs/` (metrics, split summaries, per-row split assignments in
+`split_assignments_main.parquet`, predictions for every test well-month, provenance, a run manifest with package
+versions and design settings, `facts.json` and `tables/`) and `scripts/figures/`. A single stage can be rerun
+with, for example, `python rift_pipeline.py --stage tuning --force`.
 
-Usage
-Place your groundwater dataset in the project directory (CSV/Excel format), You can find our excel file (groundwater_chile_and_elevation_dataset_2025_with_GEE.xlsx) in the data folder.
-Update the file_path variable in main.py with your dataset path
-Run the analysis:
+The source file's SHA-256 checksum is recorded in `outputs/data_provenance.json`; the value
+used for the paper begins `369a41523a64`.
 
-Bash
-python main.py
-Dataset Requirements
-Your dataset should contain:
-A target column named Depth to water (m)
-Geospatial features (elevation, coordinates)
-Climate variables (precipitation, temperature)
-Categorical features (basin, status)
+## What the analysis does not include
 
+- No geostatistical model (kriging with external drift, regression kriging) and no sequence
+  or autoregressive model; the baselines are the simple ones listed above.
+- No buffered or distance-matched (k-fold nearest-neighbor distance matching) cross-validation and no area-of-applicability
+  analysis; the spatial block design uses one fixed, unbuffered grid.
+- Hyperparameter tuning only for the two chronological designs.
+- No lithology, aquifer properties, abstraction or snow variables, because the public
+  archives do not contain them.
 
-📋 Requirements
-pandas==2.0.3
-numpy==1.24.4
-scikit-learn==1.3.0
-matplotlib==3.7.2
-seaborn==0.12.2
-openpyxl==3.1.2  # For Excel files
+## Citation
 
+See [`CITATION.cff`](CITATION.cff). The groundwater observations come from
+Venegas-Quiñones et al. (2024), *Scientific Data* 11, 170,
+https://doi.org/10.1038/s41597-023-02895-5, with the dataset at
+https://doi.org/10.17605/OSF.IO/DS3A8.
 
-💡 Key Insights & Recommendations
-Elevation and precipitation consistently emerge as the strongest predictors
-Regional variations (basin location) significantly impact groundwater depth
-Tree-based models generally outperform linear models due to complex non-linear relationships
-Recommendations for practitioners:
-Prioritize data collection on elevation and precipitation
-Implement basin-specific models for better accuracy
-Monitor model drift as climate conditions change
-Consider ensemble methods for critical applications
+## License
 
-
-🔮 Future Work
-Incorporate temporal dynamics (time-series analysis)
-Add satellite imagery features (NDVI, soil moisture)
-Develop regional-specific models
-Create deployment pipeline for real-time predictions
-Integrate with hydrological simulation models
-
-
-📜 License
-This project is licensed under the Mines License and was developed specifically for research purposes.
+MIT (see `LICENSE`).
