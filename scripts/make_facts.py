@@ -531,7 +531,8 @@ import datetime as _dt   # access date of the TerraClimate re-extraction = time 
 F["tc_access_date"] = _dt.datetime.strptime(tcv["accessed"], "%Y-%m-%d").strftime("%d %B %Y").lstrip("0")
 F["tc_file_pattern"] = "agg_terraclimate_<variable>_1950_CurrentYear_GLOBE.nc"
 dep = HERE / "deposit.json"
-F["zenodo_doi_url"] = json.load(open(dep))["zenodo_doi_url"] if dep.exists() else "https://doi.org/10.5281/zenodo.XXXXXXX"
+F.update(json.load(open(dep)) if dep.exists() else {"zenodo_doi_url": "https://doi.org/10.5281/zenodo.XXXXXXX",   # data and code records
+                                                     "zenodo_code_doi_url": "https://doi.org/10.5281/zenodo.XXXXXXX"})
 
 json.dump(F, open(OUT / "facts.json", "w", encoding="utf-8"), indent=1, ensure_ascii=False)
 print(len(F), "facts;", "tables:", sorted(p.name for p in TAB.glob("*.csv")))

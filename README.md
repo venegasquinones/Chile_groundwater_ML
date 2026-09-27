@@ -12,7 +12,7 @@ figure in the paper.
 **Status:** under submission; the article DOI will be added here.
 
 - Data (analysis table, split assignments, predictions, results): https://doi.org/10.5281/zenodo.23003804
-- Code archive (this repository, v1.0.0): https://doi.org/10.5281/zenodo.23003808
+- Code archive (this repository, v1.0.1): https://doi.org/10.5281/zenodo.23003808
 
 ---
 
