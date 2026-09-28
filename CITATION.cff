@@ -23,7 +23,7 @@ authors:
   - family-names: "McCray"
     given-names: "John E."
     orcid: "https://orcid.org/0000-0001-7481-9965"
-version: "v1.0.1"
+version: "v1.0.2"
 date-released: "2026-09-27"
 doi: "10.5281/zenodo.23003808"
 identifiers:

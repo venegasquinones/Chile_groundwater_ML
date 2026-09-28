@@ -7,7 +7,7 @@ files this script writes under OUT. Stages cache their outputs; rerun a stage wi
     python rift_pipeline.py --stage all
     python rift_pipeline.py --stage main --force
 
-Changes after review (see pipeline_review_result.json):
+Changes after review:
   * Physical-well key (Name + ~1 km location, renamed wells merged via shared Code); co-location groups (< 100 m)
     are kept together in the well-based split.
   * TerraClimate re-extracted and joined on each record's OWN calendar month (the GEE extraction rounded dates, giving

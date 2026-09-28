@@ -6,13 +6,13 @@ Learning: An Open National Benchmark for Chile* (manuscript submitted to *Data*,
 The study builds an analysis-ready table of monthly depth-to-water (DTW) values for the
 Chilean national monitoring network, scores three tree-based learners under five
 established train/test splitting designs, and compares every learner with simple
-baselines computed on the same partitions. One script produces every number, table and
-figure in the paper.
+baselines computed on the same partitions. Five scripts in `scripts/` produce every number,
+table and figure in the paper from the source file.
 
 **Status:** under submission; the article DOI will be added here.
 
 - Data (analysis table, split assignments, predictions, results): https://doi.org/10.5281/zenodo.23003804
-- Code archive (this repository, v1.0.1): https://doi.org/10.5281/zenodo.23003808
+- Code archive (this repository, v1.0.2): https://doi.org/10.5281/zenodo.23003808
 
 ---
 
@@ -48,7 +48,7 @@ scripts/
   make_figures.py               draws Figures 2-8 and S1-S7 from scripts/outputs/
   make_figure1.py               draws the workflow diagram (Figure 1) from the pipeline's provenance files
   make_facts.py                 derives every number and table reported in the paper (outputs/facts.json, outputs/tables/)
-  deposit.json                  the Zenodo DOI of the data deposit, used in the paper's Data Availability Statement
+  deposit.json                  the Zenodo DOIs of the data and code records, used in the paper's Data Availability Statement
 extraction/
   01_data_integration_google_earth_engine.ipynb   how the static predictors in the source file were extracted
 legacy/                          notebooks from an earlier, superseded analysis (see legacy/README.md)
@@ -73,6 +73,11 @@ python make_figures.py
 python make_figure1.py
 python make_facts.py
 ```
+
+`fetch_terraclimate_bbox.py` downloads the current TerraClimate release, whose values can change
+between releases. To reproduce the published numbers exactly, copy
+`terraclimate_by_location_month.parquet` from the Zenodo data record into `scripts/outputs/` and
+skip that step.
 
 Outputs are written to `scripts/outputs/` (metrics, split summaries, per-row split assignments in
 `split_assignments_main.parquet`, predictions for every test well-month, provenance, a run manifest with package

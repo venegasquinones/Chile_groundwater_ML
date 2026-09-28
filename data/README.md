@@ -21,12 +21,16 @@ table used for the paper is part of the Zenodo deposit.
 - Groundwater levels: Venegas-Quiñones et al. (2024), *Scientific Data* 11, 170,
   https://doi.org/10.1038/s41597-023-02895-5; dataset https://doi.org/10.17605/OSF.IO/DS3A8.
 - Static predictors: Google Earth Engine catalog products (Copernicus DEM GLO-30, NASADEM,
-  JAXA AW3D30 v3.2, WorldClim V1 BIO, MODIS MCD12Q1 v061); the extraction is documented in
-  `extraction/01_data_integration_google_earth_engine.ipynb`.
+  JAXA AW3D30 v3.2, WorldClim V1 BIO, MODIS MCD12Q1 v061).
+  `extraction/01_data_integration_google_earth_engine.ipynb` documents the extraction of the
+  Copernicus DEM, WorldClim, TerraClimate and MODIS values. The NASADEM (elevation, slope,
+  aspect) and AW3D30 columns were already in the compilation, added earlier through Google
+  Earth Engine; that extraction script is not included.
 - Monthly climate: TerraClimate (Abatzoglou et al., 2018), https://doi.org/10.1038/sdata.2017.191.
 
 ## Sample
 
-`sample/sample_2000_rows.csv.gz` contains the first 2,000 rows of the source file with all 232
-columns, for smoke tests. It is not sufficient to reproduce any published result.
-`sample/columns.txt` lists the columns and their dtypes.
+`sample/sample_2000_rows.csv.gz` contains the header and the first 2,000 rows of the source
+file, byte for byte (latin-1 encoded, like the source file), for smoke tests. It is not
+sufficient to reproduce any published result. `sample/columns.txt` lists the 232 columns and
+their dtypes as read from the full source file (`pd.read_csv(..., encoding="latin-1", low_memory=False)`).
